@@ -1,5 +1,8 @@
 package ie.atu;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
@@ -10,16 +13,19 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int age = 0;
 
-        while (true) {
-            System.out.print("Enter age: ");
-            String text = sc.nextLine().trim();
+        System.out.print("Enter a file name (E.g student.txt): ");
+        String fileName = sc.nextLine().trim();
 
-            try {
-                age = Integer.parseInt(text);
-                System.out.println("Thanks You entered age: " + age);
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid Input" + e.getMessage());
+            System.out.print("Enter a name to save: ");
+            String name = sc.nextLine().trim();
+
+            try (PrintWriter out = new PrintWriter(new FileWriter(fileName, true))) {
+                out.print(name);
+                System.out.println("Saved to: " + fileName);
+
+            } catch (IOException ex) {
+
+                System.out.println("Couldn't write to file" + ex.getMessage());
             }
         }
 
